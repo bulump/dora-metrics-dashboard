@@ -75,7 +75,7 @@ class GitHubDataFetcher:
             try:
                 gh_deployments = repo.get_deployments()
                 for deploy in gh_deployments:
-                    if deploy.created_at >= since_date.replace(tzinfo=None):
+                    if deploy.created_at.replace(tzinfo=None) >= since_date.replace(tzinfo=None):
                         # Get deployment status
                         statuses = list(deploy.get_statuses())
                         latest_status = statuses[0] if statuses else None
@@ -148,7 +148,7 @@ class GitHubDataFetcher:
             pulls = repo.get_pulls(state='closed', sort='updated', direction='desc')
 
             for pr in pulls:
-                if pr.merged and pr.merged_at and pr.merged_at >= since_date.replace(tzinfo=None):
+                if pr.merged and pr.merged_at and pr.merged_at.replace(tzinfo=None) >= since_date.replace(tzinfo=None):
                     # Check if merged to main/master
                     if pr.base.ref in ['main', 'master']:
                         deployments.append({
@@ -190,7 +190,7 @@ class GitHubDataFetcher:
             pulls = repo.get_pulls(state='closed', sort='updated', direction='desc')
 
             for pr in pulls:
-                if pr.merged and pr.merged_at and pr.merged_at >= since_date.replace(tzinfo=None):
+                if pr.merged and pr.merged_at and pr.merged_at.replace(tzinfo=None) >= since_date.replace(tzinfo=None):
                     prs.append({
                         'number': pr.number,
                         'title': pr.title,
