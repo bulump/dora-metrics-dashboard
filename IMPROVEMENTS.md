@@ -249,50 +249,6 @@ test_dora_metrics.py::TestOverallPerformance::test_mixed_na_and_valid_levels PAS
 
 ---
 
-## 💼 Interview Talking Points
-
-This project now demonstrates:
-
-1. **Metric Literacy**: Understanding what DORA metrics actually measure vs. common misimplementations
-
-2. **Data Quality Awareness**: Explicit handling of insufficient data, data provenance, calculation methods
-
-3. **Growth Mindset**: "Here's what I built initially, here's what I learned about metric validity, here's how I improved it"
-
-4. **Engineering Rigor**:
-   - Proper incident-deployment correlation
-   - Time-window based causation
-   - True commit-to-production tracking
-
-5. **Professional Testing**: Comprehensive pytest suite with edge case coverage
-
-6. **Honest Measurement**:
-   - Labeling approximations clearly
-   - Returning N/A instead of false positives
-   - Showing data quality explicitly
-
----
-
-## 📊 Before & After Comparison
-
-### Before
-- 7/10 portfolio project
-- 5/10 production tool
-- Measured wrong things
-- False Elite ratings possible
-- No data quality visibility
-
-### After
-- **9/10 portfolio project**
-- **8/10 production tool**
-- Measures actual DORA metrics
-- Honest N/A for insufficient data
-- Clear data provenance
-- Comprehensive test coverage
-- Professional presentation
-
----
-
 ## Files Modified
 
 ### Core Logic
