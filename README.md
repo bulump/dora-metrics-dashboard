@@ -2,8 +2,6 @@
 
 Production-ready dashboard for tracking the four key DORA (DevOps Research and Assessment) metrics that measure software delivery performance.
 
-**Portfolio Rating: 9/10** | **Production Quality: 8/10**
-
 ## Features
 
 - **📊 Accurate DORA Metrics**: Deployment Frequency, Lead Time (commit→production), MTTR, Change Failure Rate
@@ -19,12 +17,6 @@ Production-ready dashboard for tracking the four key DORA (DevOps Research and A
 ## Why This Project?
 
 As an engineering manager, understanding and improving software delivery performance is critical. The DORA metrics provide a research-backed framework for measuring DevOps effectiveness.
-
-This tool provides **accurate, production-ready DORA metrics** with:
-1. **True commit→production lead time** (not just PR cycle time)
-2. **Correlated incident-deployment mapping** (not just incident counts)
-3. **Honest N/A ratings** when data is insufficient (not false "Elite" scores)
-4. **Data quality transparency** showing calculation methods and sources
 
 ## Recent Improvements
 
@@ -193,81 +185,15 @@ pytest test_dora_metrics.py -v
 - **Plotly** - Interactive visualizations
 - **pytest** - Unit testing
 
-## Key Differentiators
-
-This isn't just another DORA dashboard - it addresses common implementation mistakes:
-
-### ❌ Common Mistakes in DORA Dashboards
-- Measuring PR cycle time instead of true lead time
-- Counting all incidents as deployment failures
-- Showing "Elite" ratings for repos with 0 deployments
-- No visibility into data quality or calculation methods
-
-### ✅ This Dashboard
-- **True Lead Time**: Commit→production via SHA matching
-- **Correlated Failures**: Incidents linked to deployments via time window
-- **Honest N/A**: Returns N/A when data insufficient
-- **Data Transparency**: Shows sources, methods, and quality indicators
-
-## Use in Interviews
-
-This project demonstrates:
-
-### Engineering Management Skills
-- ✅ Deep understanding of DORA metrics (beyond surface level)
-- ✅ Metric validity awareness (knowing what you're actually measuring)
-- ✅ Data quality consciousness (honest reporting, not vanity metrics)
-- ✅ Process improvement mindset (compliance tracking, recommendations)
-
-### Technical Skills
-- ✅ Python development (modular architecture, clean code)
-- ✅ API integration (GitHub, Anthropic)
-- ✅ Testing (comprehensive pytest suite)
-- ✅ Data visualization (Plotly, Streamlit)
-- ✅ Software engineering (SOLID principles, separation of concerns)
-
-### Interview Talking Points
-
-**The Growth Story:**
-> "Initially I built a basic DORA dashboard, but realized I was measuring **PR cycle time** instead of true **commit-to-production lead time**. I also found I was giving 'Elite' ratings to repos with zero deployments. I refactored the entire metric calculation to be **DORA-accurate**, added comprehensive tests, and built in **data quality indicators** so users know if the metrics are reliable."
-
-**Demonstrates:**
-- Self-awareness and growth mindset
-- Metric literacy (knowing what you're measuring)
-- Production-quality thinking (handling edge cases)
-- Testing discipline (17 comprehensive tests)
-
-## Metrics & Impact
-
-Based on DORA research (Accelerate State of DevOps Report):
-
-- **Elite performers** deploy 208x more frequently than low performers
-- **Elite performers** have 106x faster lead times
-- **Elite performers** recover from incidents 2,604x faster
-- **Elite performers** have 7x lower change failure rates
-
-This dashboard helps teams **accurately measure** and improve toward Elite performance.
-
-## Contributing
-
-This is a portfolio project, but suggestions are welcome! Open an issue or submit a pull request.
-
 ## License
 
 MIT License - free to use for your team!
 
 ## About
 
-Built by **Chris Bielinski** as a portfolio project demonstrating:
-- Engineering management expertise in DevOps metrics
-- Metric validity and data quality awareness
-- Professional software engineering practices
-- AI integration capabilities
-- Production-ready code quality
-
 **Tech Stack:** Python · GitHub API · Streamlit · Claude AI · Plotly · pytest
 
-I wish I'd had this tool in my previous engineering leadership roles - it would have made performance measurement and improvement so much more **data-driven**, **accurate**, and **actionable**.
+"I wish I'd had this tool in my previous engineering leadership roles - it would have made performance measurement and improvement so much more **data-driven**, **accurate**, and **actionable**."
 
 ---
 
