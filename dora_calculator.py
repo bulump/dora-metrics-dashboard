@@ -61,6 +61,12 @@ class DORACalculator:
                 'total_deployments': len(recent_deployments),
                 'total_prs': len(recent_prs),
                 'total_incidents': len(recent_incidents),
+            },
+            # Include filtered data for time-aware displays
+            'filtered_data': {
+                'deployments': recent_deployments,
+                'pull_requests': recent_prs,
+                'incidents': recent_incidents
             }
         }
 

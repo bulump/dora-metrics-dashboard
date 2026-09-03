@@ -311,9 +311,9 @@ def main():
             display_deployment_frequency(metrics['deployment_frequency'])
 
             # Add trend chart
-            if st.session_state.get('raw_data'):
+            if metrics.get('filtered_data'):
                 st.markdown("#### 📈 Deployment Timeline")
-                display_deployment_timeline(st.session_state['raw_data']['deployments'])
+                display_deployment_timeline(metrics['filtered_data']['deployments'])
 
             # Context and insights
             display_metric_context('deployment_frequency')
@@ -322,9 +322,9 @@ def main():
             display_lead_time(metrics['lead_time_for_changes'])
 
             # Add distribution chart
-            if st.session_state.get('raw_data'):
+            if metrics.get('filtered_data'):
                 st.markdown("#### 📊 Lead Time Distribution")
-                display_lead_time_distribution(st.session_state['raw_data']['pull_requests'])
+                display_lead_time_distribution(metrics['filtered_data']['pull_requests'])
 
             # Context and insights
             display_metric_context('lead_time')
@@ -343,11 +343,11 @@ def main():
             display_success_failure_chart(metrics['change_failure_rate'])
 
             # Add failed deployments table
-            if st.session_state.get('raw_data'):
+            if metrics.get('filtered_data'):
                 st.markdown("#### ❌ Failed Deployments")
                 display_failed_deployments(
-                    st.session_state['raw_data']['deployments'],
-                    st.session_state['raw_data']['pull_requests']
+                    metrics['filtered_data']['deployments'],
+                    metrics['filtered_data']['pull_requests']
                 )
 
             # Context and insights
@@ -356,10 +356,10 @@ def main():
         with tab5:
             st.markdown("### 🔍 Process Compliance & Code Quality")
 
-            if st.session_state.get('raw_data'):
+            if metrics.get('filtered_data'):
                 display_process_compliance(
-                    st.session_state['raw_data']['deployments'],
-                    st.session_state['raw_data']['pull_requests']
+                    metrics['filtered_data']['deployments'],
+                    metrics['filtered_data']['pull_requests']
                 )
             else:
                 st.info("No data available for process compliance analysis")
