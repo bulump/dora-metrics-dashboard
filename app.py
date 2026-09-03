@@ -85,6 +85,28 @@ def main():
             help="Use sample data for demonstration (bypasses GitHub API - useful for rate limits)"
         )
 
+        # Advanced settings
+        with st.expander("⚙️ Advanced Settings"):
+            st.markdown("**Customize data detection:**")
+
+            incident_labels_input = st.text_input(
+                "Incident Labels",
+                value="incident, production, outage, critical, p0, sev1",
+                help="Comma-separated list of GitHub issue labels that indicate incidents"
+            )
+
+            deployment_branches_input = st.text_input(
+                "Deployment Branches",
+                value="main, master",
+                help="Comma-separated list of branches that represent deployments when PRs are merged"
+            )
+
+            workflow_keywords_input = st.text_input(
+                "Workflow Keywords",
+                value="deploy, release, production",
+                help="Comma-separated keywords to identify deployment workflows"
+            )
+
         fetch_button = st.button("Fetch & Analyze", type="primary", use_container_width=True)
 
         st.divider()
@@ -125,7 +147,16 @@ def main():
             # Fetch from GitHub
             with st.spinner("Fetching data from GitHub..."):
                 try:
-                    fetcher = GitHubDataFetcher()
+                    # Parse custom configuration
+                    incident_labels = [label.strip() for label in incident_labels_input.split(',')]
+                    deployment_branches = [branch.strip() for branch in deployment_branches_input.split(',')]
+                    workflow_keywords = [keyword.strip() for keyword in workflow_keywords_input.split(',')]
+
+                    fetcher = GitHubDataFetcher(
+                        incident_labels=incident_labels,
+                        deployment_branches=deployment_branches,
+                        workflow_keywords=workflow_keywords
+                    )
                     data = fetcher.fetch_all_data(repo_name, days_back)
                     repo_stats = fetcher.get_repository_stats(repo_name)
                 except Exception as e:
@@ -174,58 +205,87 @@ def main():
     if st.session_state['metrics_data']:
         metrics = st.session_state['metrics_data']
         repo_stats = st.session_state.get('repo_stats', {})
-
-        # Repository header
-        st.markdown(f"### {repo_stats.get('full_name', repo_name)}")
-        st.caption(repo_stats.get('description', ''))
-
-        # Overall performance
-        st.markdown("## Overall DORA Performance")
         overall = metrics['overall']
 
-        col1, col2, col3, col4 = st.columns([2, 1, 1, 1])
+        # Executive Summary Card
+        st.markdown(f"""
+        <div class="exec-summary">
+            <h1>DORA Metrics Dashboard</h1>
+            <div class="subtitle">{repo_stats.get('full_name', repo_name)}</div>
+            <div class="score">Overall Performance: {overall['overall_level']} ({overall['score']}/4.0)</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # Compact Summary Bar
+        # Helper function to get color for level
+        def get_level_color(level):
+            colors = {
+                'Elite': '#10b981',
+                'High': '#3b82f6',
+                'Medium': '#ca8a04',
+                'Low': '#ef4444',
+                'N/A': '#6b7280'
+            }
+            return colors.get(level, '#6b7280')
+
+        # Build display values
+        df_value = f"{metrics['deployment_frequency']['deploys_per_day']:.1f}/day"
+        lt_value = f"{metrics['lead_time_for_changes'].get('median_hours', 0):.1f}h"
+        mttr_value = f"{metrics['mean_time_to_restore'].get('median_hours', 0):.1f}h"
+        cfr_value = f"{metrics['change_failure_rate'].get('failure_rate', 0):.1f}%"
+
+        st.markdown("""
+        <div class="summary-bar">
+            <div class="summary-metric">
+                <div class="label">Deployment Frequency</div>
+                <div class="value">{}</div>
+                <div class="level" style="color: {}">{}</div>
+            </div>
+            <div class="summary-metric">
+                <div class="label">Lead Time</div>
+                <div class="value">{}</div>
+                <div class="level" style="color: {}">{}</div>
+            </div>
+            <div class="summary-metric">
+                <div class="label">MTTR</div>
+                <div class="value">{}</div>
+                <div class="level" style="color: {}">{}</div>
+            </div>
+            <div class="summary-metric">
+                <div class="label">Change Failure Rate</div>
+                <div class="value">{}</div>
+                <div class="level" style="color: {}">{}</div>
+            </div>
+        </div>
+        """.format(
+            df_value,
+            get_level_color(metrics['deployment_frequency']['level']),
+            metrics['deployment_frequency']['level'],
+            lt_value,
+            get_level_color(metrics['lead_time_for_changes']['level']),
+            metrics['lead_time_for_changes']['level'],
+            mttr_value,
+            get_level_color(metrics['mean_time_to_restore']['level']),
+            metrics['mean_time_to_restore']['level'],
+            cfr_value,
+            get_level_color(metrics['change_failure_rate']['level']),
+            metrics['change_failure_rate']['level']
+        ), unsafe_allow_html=True)
+
+        # Key Statistics
+        col1, col2, col3, col4 = st.columns(4)
 
         with col1:
-            level_class = overall['overall_level'].lower().replace('/', r'\/')
-            st.markdown(f"""
-            <div class="metric-card {level_class}">
-                <h2>{overall['overall_level']} Performance</h2>
-                <p>{overall['description']}</p>
-                <p><strong>Score:</strong> {overall['score']}/4.0</p>
-            </div>
-            """, unsafe_allow_html=True)
+            st.metric("Analysis Period", f"{metrics['period_days']} days")
 
         with col2:
-            st.metric("Analysis Period", f"{metrics['period_days']} days")
             st.metric("Total Deployments", metrics['data_summary']['total_deployments'])
 
         with col3:
             st.metric("Total PRs", metrics['data_summary']['total_prs'])
-            st.metric("Total Incidents", metrics['data_summary']['total_incidents'])
 
         with col4:
-            st.markdown("**Efficiency:**")
-            if metrics['data_summary']['total_deployments'] > 0:
-                avg_prs_per_deploy = metrics['data_summary']['total_prs'] / metrics['data_summary']['total_deployments']
-                st.metric("PRs/Deploy", f"{avg_prs_per_deploy:.1f}")
-
-                # Velocity: deployments per week
-                velocity = (metrics['data_summary']['total_deployments'] / metrics['period_days']) * 7
-                st.metric("Velocity", f"{velocity:.1f}/wk")
-
-                # Check for direct commits (deployments without PRs)
-                if st.session_state.get('raw_data'):
-                    direct_commits = check_direct_commits(
-                        st.session_state['raw_data']['deployments'],
-                        st.session_state['raw_data']['pull_requests']
-                    )
-                    if direct_commits['count'] > 0:
-                        st.metric(
-                            "⚠️ Direct Commits",
-                            direct_commits['count'],
-                            delta=f"-{direct_commits['percentage']:.0f}% bypass PR",
-                            delta_color="inverse"
-                        )
+            st.metric("Total Incidents", metrics['data_summary']['total_incidents'])
 
         st.divider()
 

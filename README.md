@@ -124,20 +124,92 @@ Click "Use Demo Data" checkbox to test without GitHub API calls. Demo data showc
 
 The dashboard fetches data from three sources:
 
-1. **Deployments**
-   - ✅ GitHub Deployments API (most reliable)
-   - ✅ Workflow runs (deploy/release/production workflows)
-   - ⚠️ Inferred from merged PRs (fallback with lower confidence)
+1. **Deployments** (3-tier detection system)
+   - ✅ **Method 1: GitHub Deployments API** (most reliable)
+     - Uses official GitHub deployment events
+     - Requires GitHub Actions with `environment:` configuration
+   - ✅ **Method 2: Workflow Runs** (good fallback)
+     - Detects successful workflows with keywords: `deploy`, `release`, or `production` in name
+     - Customizable via Advanced Settings
+   - ⚠️ **Method 3: Inferred from PRs** (last resort)
+     - Assumes merged PRs to `main`/`master` = deployments
+     - Lower confidence, only used when Methods 1 & 2 find nothing
 
 2. **Pull Requests**
    - Merged PRs for lead time calculation
-   - SHA matching with deployments
+   - **SHA matching** with deployments for true commit→production time
+   - Falls back to PR cycle time (created→merged) when SHAs don't match
    - Created and merged timestamps
 
 3. **Incidents**
    - GitHub issues with labels: `incident`, `production`, `outage`, `critical`, `p0`, `sev1`
+   - **Customizable** via Advanced Settings for your team's labels
    - Created and resolved timestamps
-   - Correlated to deployments via time window
+   - Correlated to deployments via 24-hour time window
+
+### Setting Up Your Repository for Accurate Metrics
+
+For the best data quality, configure your repository to use GitHub deployment events:
+
+#### Option 1: GitHub Environments (Recommended)
+
+```yaml
+# .github/workflows/deploy.yml
+name: Deploy to Production
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production  # Creates deployment records
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy
+        run: ./deploy.sh
+```
+
+#### Option 2: Deployment Actions
+
+```yaml
+# .github/workflows/deploy.yml
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: chrnorm/deployment-action@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          environment: production
+
+      - name: Deploy
+        run: ./deploy.sh
+```
+
+#### Option 3: Workflow Naming (Minimum)
+
+If you can't use deployment events, name your workflows with keywords like:
+- `Deploy to Production`
+- `Release Pipeline`
+- `Production Deployment`
+
+The dashboard will detect these as deployments based on successful runs.
+
+### Customizing Detection Settings
+
+Use the **⚙️ Advanced Settings** in the sidebar to customize:
+
+- **Incident Labels**: Change from default `incident, production, outage, critical, p0, sev1` to match your team's labels (e.g., `bug, hotfix, emergency`)
+- **Deployment Branches**: Add branches beyond `main, master` (e.g., `production, release, stable`)
+- **Workflow Keywords**: Customize keywords beyond `deploy, release, production` (e.g., `ship, publish, cd`)
 
 ### Architecture
 

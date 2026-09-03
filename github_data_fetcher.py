@@ -12,18 +12,32 @@ import time
 class GitHubDataFetcher:
     """Fetches deployment and incident data from GitHub."""
 
-    def __init__(self, token: Optional[str] = None):
+    def __init__(
+        self,
+        token: Optional[str] = None,
+        incident_labels: Optional[List[str]] = None,
+        deployment_branches: Optional[List[str]] = None,
+        workflow_keywords: Optional[List[str]] = None
+    ):
         """
         Initialize GitHub data fetcher.
 
         Args:
             token: GitHub token (optional, uses env var if not provided)
+            incident_labels: Custom labels for incident detection (default: ['incident', 'production', 'outage', 'critical', 'p0', 'sev1'])
+            deployment_branches: Branch names to consider for deployments (default: ['main', 'master'])
+            workflow_keywords: Keywords in workflow names to identify deployments (default: ['deploy', 'release', 'production'])
         """
         self.token = token or os.getenv('GITHUB_TOKEN')
         if not self.token:
             raise ValueError("GITHUB_TOKEN must be set")
 
         self.client = Github(self.token)
+
+        # Configuration with sensible defaults
+        self.incident_labels = incident_labels or ['incident', 'production', 'outage', 'critical', 'p0', 'sev1']
+        self.deployment_branches = deployment_branches or ['main', 'master']
+        self.workflow_keywords = workflow_keywords or ['deploy', 'release', 'production']
 
     def _handle_github_exception(self, e: Exception, context: str) -> None:
         """
@@ -152,8 +166,8 @@ class GitHubDataFetcher:
                 print(f"Checking workflow runs... (found {len(deployments)} deployments so far)")
                 workflows = repo.get_workflows()
                 for workflow in workflows:
-                    # Look for deploy/deployment workflows
-                    if any(keyword in workflow.name.lower() for keyword in ['deploy', 'release', 'production']):
+                    # Look for deploy/deployment workflows using configured keywords
+                    if any(keyword in workflow.name.lower() for keyword in self.workflow_keywords):
                         runs = workflow.get_runs(created=f">={since_date.strftime('%Y-%m-%d')}")
                         for run in runs:
                             if run.conclusion == 'success':
@@ -209,8 +223,8 @@ class GitHubDataFetcher:
 
             for pr in pulls:
                 if pr.merged and pr.merged_at and pr.merged_at.replace(tzinfo=None) >= since_date.replace(tzinfo=None):
-                    # Check if merged to main/master
-                    if pr.base.ref in ['main', 'master']:
+                    # Check if merged to configured deployment branches
+                    if pr.base.ref in self.deployment_branches:
                         deployments.append({
                             'id': f"pr_{pr.number}",
                             'environment': 'production',
@@ -261,6 +275,7 @@ class GitHubDataFetcher:
                         'title': pr.title,
                         'created_at': pr.created_at.isoformat() + 'Z',
                         'merged_at': pr.merged_at.isoformat() + 'Z',
+                        'merge_commit_sha': pr.merge_commit_sha,  # CRITICAL: needed for lead time calculation
                         'author': pr.user.login,
                         'additions': pr.additions,
                         'deletions': pr.deletions,
@@ -295,18 +310,15 @@ class GitHubDataFetcher:
             repo = self.client.get_repo(repo_name)
             incidents = []
 
-            # Define incident labels
-            incident_labels = ['incident', 'production', 'outage', 'critical', 'p0', 'sev1']
-
             # Fetch issues with incident labels
-            print("Fetching incidents...")
+            print(f"Fetching incidents (looking for labels: {', '.join(self.incident_labels)})...")
             issues = repo.get_issues(state='all', since=since_date.replace(tzinfo=None))
 
             for issue in issues:
                 # Check if issue has incident-related labels
                 issue_labels = [label.name.lower() for label in issue.labels]
 
-                if any(inc_label in issue_labels for inc_label in incident_labels):
+                if any(inc_label in issue_labels for inc_label in self.incident_labels):
                     # Determine if resolved
                     resolved_at = issue.closed_at.isoformat() + 'Z' if issue.closed_at else None
 
