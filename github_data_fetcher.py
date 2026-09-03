@@ -4,8 +4,9 @@ Fetches deployment and incident data from GitHub.
 """
 from typing import List, Dict, Any, Optional
 from datetime import datetime, timedelta, timezone
-from github import Github
+from github import Github, GithubException, RateLimitExceededException, BadCredentialsException
 import os
+import time
 
 
 class GitHubDataFetcher:
@@ -23,6 +24,51 @@ class GitHubDataFetcher:
             raise ValueError("GITHUB_TOKEN must be set")
 
         self.client = Github(self.token)
+
+    def _handle_github_exception(self, e: Exception, context: str) -> None:
+        """
+        Handle GitHub API exceptions with informative error messages.
+
+        Args:
+            e: The exception that occurred
+            context: Context string describing what operation failed
+        """
+        if isinstance(e, RateLimitExceededException):
+            reset_time = e.headers.get('X-RateLimit-Reset', 'unknown')
+            if reset_time != 'unknown':
+                reset_dt = datetime.fromtimestamp(int(reset_time))
+                raise Exception(
+                    f"GitHub API rate limit exceeded. "
+                    f"Resets at {reset_dt.strftime('%H:%M:%S')}. "
+                    f"Try using Demo Data mode or wait until the limit resets."
+                )
+            else:
+                raise Exception(
+                    f"GitHub API rate limit exceeded. "
+                    f"Try using Demo Data mode or wait ~1 hour for rate limit reset."
+                )
+        elif isinstance(e, BadCredentialsException):
+            raise Exception(
+                f"GitHub authentication failed. "
+                f"Please check your GITHUB_TOKEN in .env file."
+            )
+        elif isinstance(e, GithubException):
+            if e.status == 404:
+                raise Exception(
+                    f"Repository not found or you don't have access to it. "
+                    f"Check the repository name format (owner/repo)."
+                )
+            elif e.status == 403:
+                raise Exception(
+                    f"Access forbidden (403). This could be a rate limit or permissions issue. "
+                    f"Try using Demo Data mode."
+                )
+            else:
+                raise Exception(
+                    f"GitHub API error ({e.status}): {e.data.get('message', str(e))}"
+                )
+        else:
+            raise Exception(f"Error {context}: {str(e)}")
 
     def fetch_all_data(
         self,
@@ -73,12 +119,19 @@ class GitHubDataFetcher:
 
             # Method 1: GitHub Deployments API
             try:
+                print("Fetching deployments from GitHub API...")
                 gh_deployments = repo.get_deployments()
+                deploy_count = 0
                 for deploy in gh_deployments:
+                    deploy_count += 1
                     if deploy.created_at.replace(tzinfo=None) >= since_date.replace(tzinfo=None):
                         # Get deployment status
-                        statuses = list(deploy.get_statuses())
-                        latest_status = statuses[0] if statuses else None
+                        try:
+                            statuses = list(deploy.get_statuses())
+                            latest_status = statuses[0] if statuses else None
+                        except (RateLimitExceededException, GithubException) as e:
+                            # If we hit rate limit getting statuses, use default
+                            latest_status = None
 
                         deployments.append({
                             'id': deploy.id,
@@ -89,11 +142,14 @@ class GitHubDataFetcher:
                             'creator': deploy.creator.login if deploy.creator else 'unknown',
                             'source': 'deployments_api'
                         })
+            except (RateLimitExceededException, BadCredentialsException, GithubException) as e:
+                self._handle_github_exception(e, "fetching deployments")
             except Exception as e:
                 print(f"Warning: Could not fetch from deployments API: {e}")
 
             # Method 2: Workflow runs (deploy workflows)
             try:
+                print(f"Checking workflow runs... (found {len(deployments)} deployments so far)")
                 workflows = repo.get_workflows()
                 for workflow in workflows:
                     # Look for deploy/deployment workflows
@@ -118,9 +174,13 @@ class GitHubDataFetcher:
             if not deployments:
                 print("No deployments found via API. Inferring from merged PRs...")
                 deployments = self._infer_deployments_from_prs(repo, since_date)
+            else:
+                print(f"Found {len(deployments)} total deployments")
 
             return sorted(deployments, key=lambda x: x['deployed_at'], reverse=True)
 
+        except (RateLimitExceededException, BadCredentialsException, GithubException) as e:
+            self._handle_github_exception(e, "fetching deployments")
         except Exception as e:
             print(f"Error fetching deployments: {e}")
             return []
@@ -187,9 +247,14 @@ class GitHubDataFetcher:
             repo = self.client.get_repo(repo_name)
             prs = []
 
+            print("Fetching pull requests...")
             pulls = repo.get_pulls(state='closed', sort='updated', direction='desc')
 
+            pr_count = 0
             for pr in pulls:
+                pr_count += 1
+                if pr_count % 20 == 0:
+                    print(f"Processed {pr_count} PRs...")
                 if pr.merged and pr.merged_at and pr.merged_at.replace(tzinfo=None) >= since_date.replace(tzinfo=None):
                     prs.append({
                         'number': pr.number,
@@ -234,6 +299,7 @@ class GitHubDataFetcher:
             incident_labels = ['incident', 'production', 'outage', 'critical', 'p0', 'sev1']
 
             # Fetch issues with incident labels
+            print("Fetching incidents...")
             issues = repo.get_issues(state='all', since=since_date.replace(tzinfo=None))
 
             for issue in issues:

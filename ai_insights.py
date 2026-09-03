@@ -22,7 +22,8 @@ class AIInsightsGenerator:
             raise ValueError("ANTHROPIC_API_KEY must be set")
 
         self.client = Anthropic(api_key=self.api_key)
-        self.model = "claude-sonnet-4-20250514"
+        # Use Claude Sonnet 4.5
+        self.model = "claude-sonnet-4-5-20250929"
 
     def generate_insights(
         self,

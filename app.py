@@ -3,17 +3,40 @@ DORA Metrics Dashboard - Streamlit Application
 Interactive dashboard for tracking DevOps performance metrics.
 """
 import streamlit as st
-import plotly.graph_objects as go
-import plotly.express as px
-from datetime import datetime
 from dotenv import load_dotenv
 
 from github_data_fetcher import GitHubDataFetcher
 from dora_calculator import DORACalculator
 from ai_insights import AIInsightsGenerator
 
-# Load environment variables
-load_dotenv()
+# UI Components
+from ui.styles import apply_custom_styles
+from ui.metrics_display import (
+    display_deployment_frequency,
+    display_lead_time,
+    display_mttr,
+    display_change_failure_rate
+)
+from ui.charts import (
+    display_metrics_radar_chart,
+    display_deployment_timeline,
+    display_lead_time_distribution,
+    display_success_failure_chart
+)
+from ui.data_tables import (
+    display_failed_deployments,
+    display_process_compliance,
+    display_data_quality,
+    check_direct_commits
+)
+from ui.insights import (
+    display_ai_insights,
+    display_performance_summary,
+    display_metric_context
+)
+
+# Load environment variables - override existing env vars
+load_dotenv(override=True)
 
 # Page configuration
 st.set_page_config(
@@ -23,21 +46,8 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS
-st.markdown("""
-<style>
-    .metric-card {
-        padding: 20px;
-        border-radius: 10px;
-        background-color: #f0f2f6;
-        margin: 10px 0;
-    }
-    .elite { background-color: #d4edda; border-left: 5px solid #28a745; }
-    .high { background-color: #d1ecf1; border-left: 5px solid #17a2b8; }
-    .medium { background-color: #fff3cd; border-left: 5px solid #ffc107; }
-    .low { background-color: #f8d7da; border-left: 5px solid #dc3545; }
-</style>
-""", unsafe_allow_html=True)
+# Apply custom CSS
+apply_custom_styles()
 
 
 def main():
@@ -65,14 +75,21 @@ def main():
 
         enable_ai = st.checkbox(
             "Enable AI Insights",
-            value=True,
+            value=False,
             help="Generate AI-powered recommendations (requires ANTHROPIC_API_KEY)"
+        )
+
+        use_demo_data = st.checkbox(
+            "Use Demo Data",
+            value=False,
+            help="Use sample data for demonstration (bypasses GitHub API - useful for rate limits)"
         )
 
         fetch_button = st.button("Fetch & Analyze", type="primary", use_container_width=True)
 
         st.divider()
-        st.caption("Built with Claude AI")
+        st.caption("Built by Chris Bielinski")
+        st.caption("Python · GitHub API · Streamlit · Claude AI")
 
     # Initialize session state
     if 'metrics_data' not in st.session_state:
@@ -80,47 +97,78 @@ def main():
 
     # Fetch data
     if fetch_button:
-        with st.spinner("Fetching data from GitHub..."):
-            try:
-                fetcher = GitHubDataFetcher()
-                data = fetcher.fetch_all_data(repo_name, days_back)
-                repo_stats = fetcher.get_repository_stats(repo_name)
+        if use_demo_data:
+            # Load sample data for demonstration
+            with st.spinner("Loading demo data..."):
+                try:
+                    import json
+                    with open('sample_dora_data.json', 'r') as f:
+                        data = json.load(f)
 
-                st.session_state['raw_data'] = data
-                st.session_state['repo_stats'] = repo_stats
+                    repo_stats = {
+                        'name': 'demo-project',
+                        'full_name': 'example/demo-project',
+                        'description': 'Sample DORA metrics demonstration',
+                        'stars': 0,
+                        'forks': 0,
+                        'open_issues': 0,
+                        'default_branch': 'main',
+                        'language': 'Python'
+                    }
 
-                # Calculate DORA metrics
-                calculator = DORACalculator()
-                metrics = calculator.calculate_all_metrics(
-                    deployments=data['deployments'],
-                    pull_requests=data['pull_requests'],
-                    incidents=data['incidents'],
-                    days_back=days_back
-                )
+                    st.info("📊 Using demo data - showcasing Elite-level DORA performance")
 
-                # Get overall performance
-                overall = calculator.get_overall_performance_level(metrics)
-                metrics['overall'] = overall
+                except Exception as e:
+                    st.error(f"Error loading demo data: {e}")
+                    st.stop()
+        else:
+            # Fetch from GitHub
+            with st.spinner("Fetching data from GitHub..."):
+                try:
+                    fetcher = GitHubDataFetcher()
+                    data = fetcher.fetch_all_data(repo_name, days_back)
+                    repo_stats = fetcher.get_repository_stats(repo_name)
+                except Exception as e:
+                    st.error(f"Error fetching data: {e}")
+                    st.info("Make sure GITHUB_TOKEN is set in your .env file")
+                    st.stop()
 
-                st.session_state['metrics_data'] = metrics
+        # Store data in session state (works for both demo and real data)
+        try:
+            st.session_state['raw_data'] = data
+            st.session_state['repo_stats'] = repo_stats
 
-                # Generate AI insights if enabled
-                if enable_ai:
-                    with st.spinner("Generating AI insights..."):
-                        try:
-                            ai_gen = AIInsightsGenerator()
-                            insights = ai_gen.generate_insights(metrics, repo_stats)
-                            st.session_state['ai_insights'] = insights
-                        except Exception as e:
-                            st.warning(f"Could not generate AI insights: {e}")
-                            st.session_state['ai_insights'] = None
+            # Calculate DORA metrics
+            calculator = DORACalculator()
+            metrics = calculator.calculate_all_metrics(
+                deployments=data['deployments'],
+                pull_requests=data['pull_requests'],
+                incidents=data['incidents'],
+                days_back=days_back
+            )
 
-                st.success("✅ Data fetched and analyzed successfully!")
+            # Get overall performance
+            overall = calculator.get_overall_performance_level(metrics)
+            metrics['overall'] = overall
 
-            except Exception as e:
-                st.error(f"Error fetching data: {e}")
-                st.info("Make sure GITHUB_TOKEN is set in your .env file")
-                return
+            st.session_state['metrics_data'] = metrics
+
+            # Generate AI insights if enabled
+            if enable_ai:
+                with st.spinner("Generating AI insights..."):
+                    try:
+                        ai_gen = AIInsightsGenerator()
+                        insights = ai_gen.generate_insights(metrics, repo_stats)
+                        st.session_state['ai_insights'] = insights
+                    except Exception as e:
+                        st.warning(f"Could not generate AI insights: {e}")
+                        st.session_state['ai_insights'] = None
+
+            st.success("✅ Data fetched and analyzed successfully!")
+
+        except Exception as e:
+            st.error(f"Error processing data: {e}")
+            st.stop()
 
     # Display dashboard
     if st.session_state['metrics_data']:
@@ -135,10 +183,10 @@ def main():
         st.markdown("## Overall DORA Performance")
         overall = metrics['overall']
 
-        col1, col2, col3 = st.columns([2, 1, 1])
+        col1, col2, col3, col4 = st.columns([2, 1, 1, 1])
 
         with col1:
-            level_class = overall['overall_level'].lower()
+            level_class = overall['overall_level'].lower().replace('/', r'\/')
             st.markdown(f"""
             <div class="metric-card {level_class}">
                 <h2>{overall['overall_level']} Performance</h2>
@@ -155,30 +203,114 @@ def main():
             st.metric("Total PRs", metrics['data_summary']['total_prs'])
             st.metric("Total Incidents", metrics['data_summary']['total_incidents'])
 
+        with col4:
+            st.markdown("**Efficiency:**")
+            if metrics['data_summary']['total_deployments'] > 0:
+                avg_prs_per_deploy = metrics['data_summary']['total_prs'] / metrics['data_summary']['total_deployments']
+                st.metric("PRs/Deploy", f"{avg_prs_per_deploy:.1f}")
+
+                # Velocity: deployments per week
+                velocity = (metrics['data_summary']['total_deployments'] / metrics['period_days']) * 7
+                st.metric("Velocity", f"{velocity:.1f}/wk")
+
+                # Check for direct commits (deployments without PRs)
+                if st.session_state.get('raw_data'):
+                    direct_commits = check_direct_commits(
+                        st.session_state['raw_data']['deployments'],
+                        st.session_state['raw_data']['pull_requests']
+                    )
+                    if direct_commits['count'] > 0:
+                        st.metric(
+                            "⚠️ Direct Commits",
+                            direct_commits['count'],
+                            delta=f"-{direct_commits['percentage']:.0f}% bypass PR",
+                            delta_color="inverse"
+                        )
+
         st.divider()
 
-        # Four key metrics
-        st.markdown("## Four Key Metrics")
+        # Data Quality & Provenance
+        if st.session_state.get('raw_data'):
+            display_data_quality(st.session_state['raw_data'], metrics)
+
+        st.divider()
+
+        # Key metrics
+        st.markdown("## Key Metrics")
 
         # Create tabs for each metric
-        tab1, tab2, tab3, tab4 = st.tabs([
+        tab1, tab2, tab3, tab4, tab5 = st.tabs([
             "🚀 Deployment Frequency",
             "⏱️ Lead Time for Changes",
             "🔧 Mean Time to Restore",
-            "❌ Change Failure Rate"
+            "❌ Change Failure Rate",
+            "🔍 Process Compliance"
         ])
 
         with tab1:
             display_deployment_frequency(metrics['deployment_frequency'])
 
+            # Add trend chart
+            if st.session_state.get('raw_data'):
+                st.markdown("#### 📈 Deployment Timeline")
+                display_deployment_timeline(st.session_state['raw_data']['deployments'])
+
+            # Context and insights
+            display_metric_context('deployment_frequency')
+
         with tab2:
             display_lead_time(metrics['lead_time_for_changes'])
+
+            # Add distribution chart
+            if st.session_state.get('raw_data'):
+                st.markdown("#### 📊 Lead Time Distribution")
+                display_lead_time_distribution(st.session_state['raw_data']['pull_requests'])
+
+            # Context and insights
+            display_metric_context('lead_time')
 
         with tab3:
             display_mttr(metrics['mean_time_to_restore'])
 
+            # Context and insights
+            display_metric_context('mttr')
+
         with tab4:
             display_change_failure_rate(metrics['change_failure_rate'])
+
+            # Add success/failure pie chart
+            st.markdown("#### 🎯 Deployment Success Rate")
+            display_success_failure_chart(metrics['change_failure_rate'])
+
+            # Add failed deployments table
+            if st.session_state.get('raw_data'):
+                st.markdown("#### ❌ Failed Deployments")
+                display_failed_deployments(
+                    st.session_state['raw_data']['deployments'],
+                    st.session_state['raw_data']['pull_requests']
+                )
+
+            # Context and insights
+            display_metric_context('change_failure_rate')
+
+        with tab5:
+            st.markdown("### 🔍 Process Compliance & Code Quality")
+
+            if st.session_state.get('raw_data'):
+                display_process_compliance(
+                    st.session_state['raw_data']['deployments'],
+                    st.session_state['raw_data']['pull_requests']
+                )
+            else:
+                st.info("No data available for process compliance analysis")
+
+            # Context and insights
+            display_metric_context('process_compliance')
+
+        st.divider()
+
+        # Performance Summary
+        display_performance_summary(metrics)
 
         st.divider()
 
@@ -223,206 +355,6 @@ def main():
         - **Medium**: Medium performers
         - **Low**: Low performers (needs improvement)
         """)
-
-
-def display_deployment_frequency(metric: dict):
-    """Display deployment frequency metric."""
-    level_class = metric['level'].lower()
-
-    col1, col2 = st.columns([1, 1])
-
-    with col1:
-        st.markdown(f"""
-        <div class="metric-card {level_class}">
-            <h3>{metric['level']} Performance</h3>
-            <p>{metric['description']}</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-        st.metric("Deployments per Day", metric['deploys_per_day'])
-        st.metric("Deployments per Week", metric['deploys_per_week'])
-        st.metric("Total Deployments", metric['total_deployments'])
-
-    with col2:
-        # DORA levels reference
-        st.markdown("""
-        **DORA Levels:**
-        - 🟢 Elite: Multiple deploys/day
-        - 🔵 High: Weekly to daily
-        - 🟡 Medium: Monthly to weekly
-        - 🔴 Low: Less than monthly
-        """)
-
-
-def display_lead_time(metric: dict):
-    """Display lead time metric."""
-    level_class = metric['level'].lower()
-
-    col1, col2 = st.columns([1, 1])
-
-    with col1:
-        st.markdown(f"""
-        <div class="metric-card {level_class}">
-            <h3>{metric['level']} Performance</h3>
-            <p>{metric['description']}</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-        st.metric("Median Lead Time", f"{metric['median_hours']:.1f} hours")
-        st.metric("Mean Lead Time", f"{metric['mean_hours']:.1f} hours")
-        st.metric("P95 Lead Time", f"{metric['p95_hours']:.1f} hours")
-
-    with col2:
-        st.markdown("""
-        **DORA Levels:**
-        - 🟢 Elite: < 1 hour
-        - 🔵 High: 1 day to 1 week
-        - 🟡 Medium: 1 week to 1 month
-        - 🔴 Low: > 1 month
-        """)
-
-
-def display_mttr(metric: dict):
-    """Display MTTR metric."""
-    level_class = metric['level'].lower()
-
-    col1, col2 = st.columns([1, 1])
-
-    with col1:
-        st.markdown(f"""
-        <div class="metric-card {level_class}">
-            <h3>{metric['level']} Performance</h3>
-            <p>{metric['description']}</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-        if metric['total_incidents'] > 0:
-            st.metric("Median MTTR", f"{metric['median_hours']:.1f} hours")
-            st.metric("Mean MTTR", f"{metric['mean_hours']:.1f} hours")
-        else:
-            st.success("🎉 No incidents in period!")
-
-        st.metric("Total Incidents", metric['total_incidents'])
-
-    with col2:
-        st.markdown("""
-        **DORA Levels:**
-        - 🟢 Elite: < 1 hour
-        - 🔵 High: < 1 day
-        - 🟡 Medium: 1 day to 1 week
-        - 🔴 Low: > 1 week
-        """)
-
-
-def display_change_failure_rate(metric: dict):
-    """Display change failure rate metric."""
-    level_class = metric['level'].lower()
-
-    col1, col2 = st.columns([1, 1])
-
-    with col1:
-        st.markdown(f"""
-        <div class="metric-card {level_class}">
-            <h3>{metric['level']} Performance</h3>
-            <p>{metric['description']}</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-        st.metric("Failure Rate", f"{metric['failure_rate_pct']:.1f}%")
-        st.metric("Failed Deployments", f"{metric['failed_deployments']} / {metric['total_deployments']}")
-
-    with col2:
-        st.markdown("""
-        **DORA Levels:**
-        - 🟢 Elite: 0-15%
-        - 🔵 High: 16-30%
-        - 🟡 Medium: 31-45%
-        - 🔴 Low: 46-100%
-        """)
-
-
-def display_metrics_radar_chart(metrics: dict):
-    """Display radar chart comparing all metrics."""
-    level_scores = {
-        'Elite': 4,
-        'High': 3,
-        'Medium': 2,
-        'Low': 1
-    }
-
-    categories = [
-        'Deployment<br>Frequency',
-        'Lead Time for<br>Changes',
-        'Mean Time to<br>Restore',
-        'Change Failure<br>Rate'
-    ]
-
-    values = [
-        level_scores[metrics['deployment_frequency']['level']],
-        level_scores[metrics['lead_time_for_changes']['level']],
-        level_scores[metrics['mean_time_to_restore']['level']],
-        level_scores[metrics['change_failure_rate']['level']]
-    ]
-
-    fig = go.Figure()
-
-    fig.add_trace(go.Scatterpolar(
-        r=values,
-        theta=categories,
-        fill='toself',
-        name='Current Performance',
-        marker=dict(color='#1f77b4')
-    ))
-
-    # Add target (Elite) line
-    fig.add_trace(go.Scatterpolar(
-        r=[4, 4, 4, 4],
-        theta=categories,
-        fill='toself',
-        name='Elite Performance',
-        marker=dict(color='#2ca02c'),
-        opacity=0.3
-    ))
-
-    fig.update_layout(
-        polar=dict(
-            radialaxis=dict(
-                visible=True,
-                range=[0, 4],
-                ticktext=['', 'Low', 'Medium', 'High', 'Elite'],
-                tickvals=[0, 1, 2, 3, 4]
-            )
-        ),
-        showlegend=True,
-        title="DORA Metrics Performance Radar"
-    )
-
-    st.plotly_chart(fig, use_container_width=True)
-
-
-def display_ai_insights(insights: dict):
-    """Display AI-generated insights."""
-    if not insights.get('success'):
-        st.warning("AI insights unavailable. Check your ANTHROPIC_API_KEY.")
-        return
-
-    st.markdown("## 🤖 AI-Powered Insights")
-
-    st.markdown(insights['insights'])
-
-    # Metrics summary
-    with st.expander("📊 Metrics Summary"):
-        summary = insights['metrics_summary']
-        col1, col2, col3, col4 = st.columns(4)
-
-        with col1:
-            st.metric("Deployment Frequency", summary['deployment_frequency'])
-        with col2:
-            st.metric("Lead Time", summary['lead_time'])
-        with col3:
-            st.metric("MTTR", summary['mttr'])
-        with col4:
-            st.metric("Change Failure Rate", summary['change_failure_rate'])
 
 
 if __name__ == "__main__":
