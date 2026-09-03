@@ -133,6 +133,7 @@ class DORACalculator:
             'deploys_per_week': round(deploys_per_week, 2),
             'total_deployments': total_deployments,
             'days_with_deployments': days_with_deployments,
+            'period_days': days_back,
             'level': level,
             'description': description
         }

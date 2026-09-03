@@ -39,8 +39,9 @@ def display_deployment_frequency(metric: dict):
     with col3:
         st.markdown("**Quick Stats:**")
         days_with_deploys = metric.get('days_with_deployments', 0)
+        period_days = metric.get('period_days', 30)  # Get actual analysis period
         if metric['total_deployments'] > 0:
-            st.metric("Active Days", f"{days_with_deploys}/30")
+            st.metric("Active Days", f"{days_with_deploys}/{period_days}")
             avg_per_active = metric['total_deployments'] / max(days_with_deploys, 1)
             st.metric("Avg/Active Day", f"{avg_per_active:.1f}")
 
