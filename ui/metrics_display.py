@@ -198,9 +198,9 @@ def display_change_failure_rate(metric: dict):
         st.metric("Success Rate", f"{success_rate:.1f}%")
 
         # Show gap to elite
-        gap_to_elite = max(0, metric['failure_rate_pct'] - 15)
+        gap_to_elite = metric['failure_rate_pct'] - 15
         if gap_to_elite > 0:
-            st.metric("Gap to Elite", f"-{gap_to_elite:.1f}%", delta_color="inverse")
+            st.metric("Gap to Elite", f"{gap_to_elite:.1f}pp", delta_color="inverse")
         else:
             st.metric("Status", "✅ Elite")
 

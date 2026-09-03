@@ -1,0 +1,1403 @@
+{
+  "deployments": [
+    {
+      "id": "deploy_27",
+      "environment": "production",
+      "deployed_at": "2026-09-02T19:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0027",
+      "creator": "diana",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_35",
+      "environment": "production",
+      "deployed_at": "2026-09-02T18:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0035",
+      "creator": "eve",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_18",
+      "environment": "production",
+      "deployed_at": "2026-09-02T14:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0018",
+      "creator": "eve",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_36",
+      "environment": "production",
+      "deployed_at": "2026-09-02T05:00:17.543187Z",
+      "status": "failure",
+      "sha": "sha0036",
+      "creator": "alice",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_39",
+      "environment": "production",
+      "deployed_at": "2026-09-01T12:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0039",
+      "creator": "charlie",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_46",
+      "environment": "production",
+      "deployed_at": "2026-08-31T04:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0046",
+      "creator": "diana",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_10",
+      "environment": "production",
+      "deployed_at": "2026-08-30T10:00:17.543187Z",
+      "status": "failure",
+      "sha": "sha0010",
+      "creator": "diana",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_40",
+      "environment": "production",
+      "deployed_at": "2026-08-30T07:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0040",
+      "creator": "charlie",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_14",
+      "environment": "production",
+      "deployed_at": "2026-08-30T06:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0014",
+      "creator": "eve",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_2",
+      "environment": "production",
+      "deployed_at": "2026-08-28T21:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0002",
+      "creator": "alice",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_48",
+      "environment": "production",
+      "deployed_at": "2026-08-28T21:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0048",
+      "creator": "diana",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_23",
+      "environment": "production",
+      "deployed_at": "2026-08-28T15:00:17.543187Z",
+      "status": "failure",
+      "sha": "sha0023",
+      "creator": "alice",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_52",
+      "environment": "production",
+      "deployed_at": "2026-08-28T02:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0052",
+      "creator": "bob",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_45",
+      "environment": "production",
+      "deployed_at": "2026-08-27T21:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0045",
+      "creator": "eve",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_53",
+      "environment": "production",
+      "deployed_at": "2026-08-27T19:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0053",
+      "creator": "bob",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_28",
+      "environment": "production",
+      "deployed_at": "2026-08-27T06:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0028",
+      "creator": "eve",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_26",
+      "environment": "production",
+      "deployed_at": "2026-08-26T22:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0026",
+      "creator": "eve",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_15",
+      "environment": "production",
+      "deployed_at": "2026-08-25T05:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0015",
+      "creator": "bob",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_5",
+      "environment": "production",
+      "deployed_at": "2026-08-24T22:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0005",
+      "creator": "diana",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_12",
+      "environment": "production",
+      "deployed_at": "2026-08-24T15:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0012",
+      "creator": "diana",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_38",
+      "environment": "production",
+      "deployed_at": "2026-08-23T09:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0038",
+      "creator": "alice",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_16",
+      "environment": "production",
+      "deployed_at": "2026-08-23T08:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0016",
+      "creator": "eve",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_25",
+      "environment": "production",
+      "deployed_at": "2026-08-22T13:00:17.543187Z",
+      "status": "failure",
+      "sha": "sha0025",
+      "creator": "diana",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_31",
+      "environment": "production",
+      "deployed_at": "2026-08-21T13:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0031",
+      "creator": "charlie",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_55",
+      "environment": "production",
+      "deployed_at": "2026-08-20T14:00:17.543187Z",
+      "status": "failure",
+      "sha": "sha0055",
+      "creator": "charlie",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_17",
+      "environment": "production",
+      "deployed_at": "2026-08-19T19:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0017",
+      "creator": "charlie",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_0",
+      "environment": "production",
+      "deployed_at": "2026-08-19T16:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0000",
+      "creator": "diana",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_34",
+      "environment": "production",
+      "deployed_at": "2026-08-19T06:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0034",
+      "creator": "diana",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_41",
+      "environment": "production",
+      "deployed_at": "2026-08-19T00:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0041",
+      "creator": "bob",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_9",
+      "environment": "production",
+      "deployed_at": "2026-08-18T11:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0009",
+      "creator": "diana",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_49",
+      "environment": "production",
+      "deployed_at": "2026-08-18T08:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0049",
+      "creator": "bob",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_7",
+      "environment": "production",
+      "deployed_at": "2026-08-18T03:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0007",
+      "creator": "eve",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_57",
+      "environment": "production",
+      "deployed_at": "2026-08-17T21:00:17.543187Z",
+      "status": "failure",
+      "sha": "sha0057",
+      "creator": "eve",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_37",
+      "environment": "production",
+      "deployed_at": "2026-08-17T01:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0037",
+      "creator": "bob",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_51",
+      "environment": "production",
+      "deployed_at": "2026-08-16T07:00:17.543187Z",
+      "status": "failure",
+      "sha": "sha0051",
+      "creator": "diana",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_54",
+      "environment": "production",
+      "deployed_at": "2026-08-16T07:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0054",
+      "creator": "bob",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_22",
+      "environment": "production",
+      "deployed_at": "2026-08-16T03:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0022",
+      "creator": "eve",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_24",
+      "environment": "production",
+      "deployed_at": "2026-08-14T06:00:17.543187Z",
+      "status": "failure",
+      "sha": "sha0024",
+      "creator": "diana",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_4",
+      "environment": "production",
+      "deployed_at": "2026-08-14T04:00:17.543187Z",
+      "status": "failure",
+      "sha": "sha0004",
+      "creator": "charlie",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_29",
+      "environment": "production",
+      "deployed_at": "2026-08-13T22:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0029",
+      "creator": "charlie",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_42",
+      "environment": "production",
+      "deployed_at": "2026-08-12T09:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0042",
+      "creator": "eve",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_56",
+      "environment": "production",
+      "deployed_at": "2026-08-12T02:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0056",
+      "creator": "eve",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_19",
+      "environment": "production",
+      "deployed_at": "2026-08-11T21:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0019",
+      "creator": "bob",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_13",
+      "environment": "production",
+      "deployed_at": "2026-08-11T12:00:17.543187Z",
+      "status": "failure",
+      "sha": "sha0013",
+      "creator": "eve",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_47",
+      "environment": "production",
+      "deployed_at": "2026-08-11T09:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0047",
+      "creator": "diana",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_58",
+      "environment": "production",
+      "deployed_at": "2026-08-11T03:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0058",
+      "creator": "bob",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_33",
+      "environment": "production",
+      "deployed_at": "2026-08-10T19:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0033",
+      "creator": "alice",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_44",
+      "environment": "production",
+      "deployed_at": "2026-08-10T09:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0044",
+      "creator": "bob",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_3",
+      "environment": "production",
+      "deployed_at": "2026-08-10T08:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0003",
+      "creator": "alice",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_32",
+      "environment": "production",
+      "deployed_at": "2026-08-09T18:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0032",
+      "creator": "charlie",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_6",
+      "environment": "production",
+      "deployed_at": "2026-08-09T14:00:17.543187Z",
+      "status": "failure",
+      "sha": "sha0006",
+      "creator": "diana",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_1",
+      "environment": "production",
+      "deployed_at": "2026-08-08T23:00:17.543187Z",
+      "status": "failure",
+      "sha": "sha0001",
+      "creator": "alice",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_50",
+      "environment": "production",
+      "deployed_at": "2026-08-08T11:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0050",
+      "creator": "diana",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_59",
+      "environment": "production",
+      "deployed_at": "2026-08-07T22:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0059",
+      "creator": "bob",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_21",
+      "environment": "production",
+      "deployed_at": "2026-08-07T12:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0021",
+      "creator": "charlie",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_20",
+      "environment": "production",
+      "deployed_at": "2026-08-06T21:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0020",
+      "creator": "charlie",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_8",
+      "environment": "production",
+      "deployed_at": "2026-08-06T17:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0008",
+      "creator": "alice",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_11",
+      "environment": "production",
+      "deployed_at": "2026-08-06T16:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0011",
+      "creator": "eve",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_30",
+      "environment": "production",
+      "deployed_at": "2026-08-06T12:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0030",
+      "creator": "alice",
+      "source": "github_actions"
+    },
+    {
+      "id": "deploy_43",
+      "environment": "production",
+      "deployed_at": "2026-08-06T03:00:17.543187Z",
+      "status": "success",
+      "sha": "sha0043",
+      "creator": "bob",
+      "source": "github_actions"
+    }
+  ],
+  "pull_requests": [
+    {
+      "number": 2033,
+      "title": "Add rate limiting",
+      "created_at": "2026-09-02T19:00:17.543187Z",
+      "merged_at": "2026-09-02T21:00:17.543187Z",
+      "author": "charlie",
+      "additions": 311,
+      "deletions": 134,
+      "changed_files": 6,
+      "commits": 2,
+      "merge_commit_sha": "sha0000"
+    },
+    {
+      "number": 2032,
+      "title": "Optimize database queries",
+      "created_at": "2026-09-02T10:00:17.543187Z",
+      "merged_at": "2026-09-02T14:00:17.543187Z",
+      "author": "charlie",
+      "additions": 64,
+      "deletions": 177,
+      "changed_files": 1,
+      "commits": 1,
+      "merge_commit_sha": "sha0001"
+    },
+    {
+      "number": 2041,
+      "title": "Improve accessibility",
+      "created_at": "2026-09-01T02:00:17.543187Z",
+      "merged_at": "2026-09-01T09:00:17.543187Z",
+      "author": "eve",
+      "additions": 107,
+      "deletions": 132,
+      "changed_files": 3,
+      "commits": 2,
+      "merge_commit_sha": "sha0002"
+    },
+    {
+      "number": 2019,
+      "title": "Add rate limiting",
+      "created_at": "2026-09-01T04:00:17.543187Z",
+      "merged_at": "2026-09-01T08:00:17.543187Z",
+      "author": "eve",
+      "additions": 225,
+      "deletions": 178,
+      "changed_files": 1,
+      "commits": 5,
+      "merge_commit_sha": "sha0003"
+    },
+    {
+      "number": 2018,
+      "title": "Optimize database queries",
+      "created_at": "2026-08-31T21:00:17.543187Z",
+      "merged_at": "2026-09-01T05:00:17.543187Z",
+      "author": "eve",
+      "additions": 83,
+      "deletions": 175,
+      "changed_files": 8,
+      "commits": 4,
+      "merge_commit_sha": "sha0004"
+    },
+    {
+      "number": 2040,
+      "title": "Fix pagination bug",
+      "created_at": "2026-08-31T21:00:17.543187Z",
+      "merged_at": "2026-09-01T02:00:17.543187Z",
+      "author": "diana",
+      "additions": 65,
+      "deletions": 188,
+      "changed_files": 1,
+      "commits": 1,
+      "merge_commit_sha": "sha0005"
+    },
+    {
+      "number": 2052,
+      "title": "Update dependencies",
+      "created_at": "2026-08-31T21:00:17.543187Z",
+      "merged_at": "2026-08-31T23:00:17.543187Z",
+      "author": "bob",
+      "additions": 422,
+      "deletions": 138,
+      "changed_files": 4,
+      "commits": 3,
+      "merge_commit_sha": "sha0006"
+    },
+    {
+      "number": 2014,
+      "title": "Implement dark mode",
+      "created_at": "2026-08-31T13:00:17.543187Z",
+      "merged_at": "2026-08-31T19:00:17.543187Z",
+      "author": "diana",
+      "additions": 112,
+      "deletions": 67,
+      "changed_files": 8,
+      "commits": 1,
+      "merge_commit_sha": "sha0007"
+    },
+    {
+      "number": 2057,
+      "title": "Fix pagination bug",
+      "created_at": "2026-08-31T10:00:17.543187Z",
+      "merged_at": "2026-08-31T15:00:17.543187Z",
+      "author": "eve",
+      "additions": 298,
+      "deletions": 32,
+      "changed_files": 6,
+      "commits": 3,
+      "merge_commit_sha": "sha0008"
+    },
+    {
+      "number": 2055,
+      "title": "Improve accessibility",
+      "created_at": "2026-08-31T02:00:17.543187Z",
+      "merged_at": "2026-08-31T06:00:17.543187Z",
+      "author": "diana",
+      "additions": 163,
+      "deletions": 48,
+      "changed_files": 2,
+      "commits": 4,
+      "merge_commit_sha": "sha0009"
+    },
+    {
+      "number": 2058,
+      "title": "Fix mobile responsiveness",
+      "created_at": "2026-08-30T06:00:17.543187Z",
+      "merged_at": "2026-08-30T14:00:17.543187Z",
+      "author": "eve",
+      "additions": 204,
+      "deletions": 154,
+      "changed_files": 3,
+      "commits": 1,
+      "merge_commit_sha": "sha0010"
+    },
+    {
+      "number": 2039,
+      "title": "Fix memory leak in cache",
+      "created_at": "2026-08-30T03:00:17.543187Z",
+      "merged_at": "2026-08-30T05:00:17.543187Z",
+      "author": "alice",
+      "additions": 436,
+      "deletions": 197,
+      "changed_files": 7,
+      "commits": 4,
+      "merge_commit_sha": "sha0011"
+    },
+    {
+      "number": 2050,
+      "title": "Update dependencies",
+      "created_at": "2026-08-29T22:00:17.543187Z",
+      "merged_at": "2026-08-30T01:00:17.543187Z",
+      "author": "charlie",
+      "additions": 340,
+      "deletions": 175,
+      "changed_files": 7,
+      "commits": 1,
+      "merge_commit_sha": "sha0012"
+    },
+    {
+      "number": 2054,
+      "title": "Optimize database queries",
+      "created_at": "2026-08-29T07:00:17.543187Z",
+      "merged_at": "2026-08-29T11:00:17.543187Z",
+      "author": "eve",
+      "additions": 202,
+      "deletions": 111,
+      "changed_files": 7,
+      "commits": 5,
+      "merge_commit_sha": "sha0013"
+    },
+    {
+      "number": 2045,
+      "title": "Optimize image loading",
+      "created_at": "2026-08-28T05:00:17.543187Z",
+      "merged_at": "2026-08-28T13:00:17.543187Z",
+      "author": "alice",
+      "additions": 50,
+      "deletions": 146,
+      "changed_files": 5,
+      "commits": 1,
+      "merge_commit_sha": "sha0014"
+    },
+    {
+      "number": 2062,
+      "title": "Fix race condition",
+      "created_at": "2026-08-28T09:00:17.543187Z",
+      "merged_at": "2026-08-28T12:00:17.543187Z",
+      "author": "charlie",
+      "additions": 491,
+      "deletions": 110,
+      "changed_files": 1,
+      "commits": 2,
+      "merge_commit_sha": "sha0015"
+    },
+    {
+      "number": 2016,
+      "title": "Improve accessibility",
+      "created_at": "2026-08-26T12:00:17.543187Z",
+      "merged_at": "2026-08-26T14:00:17.543187Z",
+      "author": "bob",
+      "additions": 395,
+      "deletions": 19,
+      "changed_files": 2,
+      "commits": 5,
+      "merge_commit_sha": "sha0016"
+    },
+    {
+      "number": 2061,
+      "title": "Fix memory leak in cache",
+      "created_at": "2026-08-25T22:00:17.543187Z",
+      "merged_at": "2026-08-26T00:00:17.543187Z",
+      "author": "charlie",
+      "additions": 239,
+      "deletions": 60,
+      "changed_files": 3,
+      "commits": 2,
+      "merge_commit_sha": "sha0017"
+    },
+    {
+      "number": 2049,
+      "title": "Improve accessibility",
+      "created_at": "2026-08-24T12:00:17.543187Z",
+      "merged_at": "2026-08-24T16:00:17.543187Z",
+      "author": "alice",
+      "additions": 366,
+      "deletions": 146,
+      "changed_files": 4,
+      "commits": 3,
+      "merge_commit_sha": "sha0018"
+    },
+    {
+      "number": 2023,
+      "title": "Optimize image loading",
+      "created_at": "2026-08-24T09:00:17.543187Z",
+      "merged_at": "2026-08-24T12:00:17.543187Z",
+      "author": "charlie",
+      "additions": 52,
+      "deletions": 115,
+      "changed_files": 3,
+      "commits": 3,
+      "merge_commit_sha": "sha0019"
+    },
+    {
+      "number": 2004,
+      "title": "Implement dark mode",
+      "created_at": "2026-08-23T03:00:17.543187Z",
+      "merged_at": "2026-08-23T11:00:17.543187Z",
+      "author": "charlie",
+      "additions": 49,
+      "deletions": 163,
+      "changed_files": 8,
+      "commits": 5,
+      "merge_commit_sha": "sha0020"
+    },
+    {
+      "number": 2047,
+      "title": "Add user authentication",
+      "created_at": "2026-08-23T02:00:17.543187Z",
+      "merged_at": "2026-08-23T10:00:17.543187Z",
+      "author": "diana",
+      "additions": 414,
+      "deletions": 69,
+      "changed_files": 2,
+      "commits": 1,
+      "merge_commit_sha": "sha0021"
+    },
+    {
+      "number": 2007,
+      "title": "Fix memory leak in cache",
+      "created_at": "2026-08-22T21:00:17.543187Z",
+      "merged_at": "2026-08-23T02:00:17.543187Z",
+      "author": "alice",
+      "additions": 116,
+      "deletions": 191,
+      "changed_files": 2,
+      "commits": 5,
+      "merge_commit_sha": "sha0022"
+    },
+    {
+      "number": 2035,
+      "title": "Fix XSS vulnerability",
+      "created_at": "2026-08-22T11:00:17.543187Z",
+      "merged_at": "2026-08-22T16:00:17.543187Z",
+      "author": "diana",
+      "additions": 420,
+      "deletions": 15,
+      "changed_files": 8,
+      "commits": 3,
+      "merge_commit_sha": "sha0023"
+    },
+    {
+      "number": 2013,
+      "title": "Fix XSS vulnerability",
+      "created_at": "2026-08-21T21:00:17.543187Z",
+      "merged_at": "2026-08-22T05:00:17.543187Z",
+      "author": "eve",
+      "additions": 185,
+      "deletions": 166,
+      "changed_files": 7,
+      "commits": 3,
+      "merge_commit_sha": "sha0024"
+    },
+    {
+      "number": 2026,
+      "title": "Refactor API endpoints",
+      "created_at": "2026-08-21T13:00:17.543187Z",
+      "merged_at": "2026-08-21T18:00:17.543187Z",
+      "author": "alice",
+      "additions": 395,
+      "deletions": 164,
+      "changed_files": 6,
+      "commits": 5,
+      "merge_commit_sha": "sha0025"
+    },
+    {
+      "number": 2020,
+      "title": "Add rate limiting",
+      "created_at": "2026-08-21T10:00:17.543187Z",
+      "merged_at": "2026-08-21T13:00:17.543187Z",
+      "author": "bob",
+      "additions": 402,
+      "deletions": 82,
+      "changed_files": 7,
+      "commits": 3,
+      "merge_commit_sha": "sha0026"
+    },
+    {
+      "number": 2046,
+      "title": "Optimize image loading",
+      "created_at": "2026-08-21T05:00:17.543187Z",
+      "merged_at": "2026-08-21T07:00:17.543187Z",
+      "author": "charlie",
+      "additions": 235,
+      "deletions": 75,
+      "changed_files": 8,
+      "commits": 2,
+      "merge_commit_sha": "sha0027"
+    },
+    {
+      "number": 2012,
+      "title": "Optimize image loading",
+      "created_at": "2026-08-19T09:00:17.543187Z",
+      "merged_at": "2026-08-19T17:00:17.543187Z",
+      "author": "bob",
+      "additions": 347,
+      "deletions": 143,
+      "changed_files": 3,
+      "commits": 3,
+      "merge_commit_sha": "sha0028"
+    },
+    {
+      "number": 2048,
+      "title": "Implement feature flags",
+      "created_at": "2026-08-19T10:00:17.543187Z",
+      "merged_at": "2026-08-19T17:00:17.543187Z",
+      "author": "diana",
+      "additions": 447,
+      "deletions": 114,
+      "changed_files": 4,
+      "commits": 4,
+      "merge_commit_sha": "sha0029"
+    },
+    {
+      "number": 2025,
+      "title": "Fix pagination bug",
+      "created_at": "2026-08-18T12:00:17.543187Z",
+      "merged_at": "2026-08-18T14:00:17.543187Z",
+      "author": "bob",
+      "additions": 49,
+      "deletions": 166,
+      "changed_files": 5,
+      "commits": 1,
+      "merge_commit_sha": "sha0030"
+    },
+    {
+      "number": 2036,
+      "title": "Optimize image loading",
+      "created_at": "2026-08-18T03:00:17.543187Z",
+      "merged_at": "2026-08-18T08:00:17.543187Z",
+      "author": "diana",
+      "additions": 189,
+      "deletions": 24,
+      "changed_files": 6,
+      "commits": 4,
+      "merge_commit_sha": "sha0031"
+    },
+    {
+      "number": 2037,
+      "title": "Fix memory leak in cache",
+      "created_at": "2026-08-16T19:00:17.543187Z",
+      "merged_at": "2026-08-17T03:00:17.543187Z",
+      "author": "eve",
+      "additions": 87,
+      "deletions": 128,
+      "changed_files": 7,
+      "commits": 2,
+      "merge_commit_sha": "sha0032"
+    },
+    {
+      "number": 2000,
+      "title": "Implement feature flags",
+      "created_at": "2026-08-17T00:00:17.543187Z",
+      "merged_at": "2026-08-17T02:00:17.543187Z",
+      "author": "eve",
+      "additions": 83,
+      "deletions": 98,
+      "changed_files": 4,
+      "commits": 1,
+      "merge_commit_sha": "sha0033"
+    },
+    {
+      "number": 2022,
+      "title": "Optimize database queries",
+      "created_at": "2026-08-16T22:00:17.543187Z",
+      "merged_at": "2026-08-17T00:00:17.543187Z",
+      "author": "charlie",
+      "additions": 363,
+      "deletions": 50,
+      "changed_files": 2,
+      "commits": 4,
+      "merge_commit_sha": "sha0034"
+    },
+    {
+      "number": 2044,
+      "title": "Fix memory leak in cache",
+      "created_at": "2026-08-15T21:00:17.543187Z",
+      "merged_at": "2026-08-16T00:00:17.543187Z",
+      "author": "charlie",
+      "additions": 381,
+      "deletions": 125,
+      "changed_files": 7,
+      "commits": 2,
+      "merge_commit_sha": "sha0035"
+    },
+    {
+      "number": 2059,
+      "title": "Optimize database queries",
+      "created_at": "2026-08-15T13:00:17.543187Z",
+      "merged_at": "2026-08-15T21:00:17.543187Z",
+      "author": "bob",
+      "additions": 40,
+      "deletions": 192,
+      "changed_files": 5,
+      "commits": 1,
+      "merge_commit_sha": "sha0036"
+    },
+    {
+      "number": 2003,
+      "title": "Fix mobile responsiveness",
+      "created_at": "2026-08-15T10:00:17.543187Z",
+      "merged_at": "2026-08-15T14:00:17.543187Z",
+      "author": "alice",
+      "additions": 436,
+      "deletions": 97,
+      "changed_files": 2,
+      "commits": 5,
+      "merge_commit_sha": "sha0037"
+    },
+    {
+      "number": 2034,
+      "title": "Refactor API endpoints",
+      "created_at": "2026-08-14T11:00:17.543187Z",
+      "merged_at": "2026-08-14T17:00:17.543187Z",
+      "author": "alice",
+      "additions": 248,
+      "deletions": 75,
+      "changed_files": 2,
+      "commits": 4,
+      "merge_commit_sha": "sha0038"
+    },
+    {
+      "number": 2015,
+      "title": "Add data export feature",
+      "created_at": "2026-08-14T12:00:17.543187Z",
+      "merged_at": "2026-08-14T14:00:17.543187Z",
+      "author": "alice",
+      "additions": 109,
+      "deletions": 43,
+      "changed_files": 4,
+      "commits": 5,
+      "merge_commit_sha": "sha0039"
+    },
+    {
+      "number": 2027,
+      "title": "Optimize database queries",
+      "created_at": "2026-08-14T00:00:17.543187Z",
+      "merged_at": "2026-08-14T03:00:17.543187Z",
+      "author": "diana",
+      "additions": 371,
+      "deletions": 168,
+      "changed_files": 3,
+      "commits": 1,
+      "merge_commit_sha": "sha0040"
+    },
+    {
+      "number": 2056,
+      "title": "Add rate limiting",
+      "created_at": "2026-08-14T00:00:17.543187Z",
+      "merged_at": "2026-08-14T02:00:17.543187Z",
+      "author": "charlie",
+      "additions": 206,
+      "deletions": 17,
+      "changed_files": 8,
+      "commits": 2,
+      "merge_commit_sha": "sha0041"
+    },
+    {
+      "number": 2038,
+      "title": "Add end-to-end tests",
+      "created_at": "2026-08-13T22:00:17.543187Z",
+      "merged_at": "2026-08-14T01:00:17.543187Z",
+      "author": "eve",
+      "additions": 483,
+      "deletions": 41,
+      "changed_files": 2,
+      "commits": 4,
+      "merge_commit_sha": "sha_pr_2038"
+    },
+    {
+      "number": 2008,
+      "title": "Add user authentication",
+      "created_at": "2026-08-13T19:00:17.543187Z",
+      "merged_at": "2026-08-13T22:00:17.543187Z",
+      "author": "bob",
+      "additions": 388,
+      "deletions": 94,
+      "changed_files": 5,
+      "commits": 4,
+      "merge_commit_sha": "sha_pr_2008"
+    },
+    {
+      "number": 2011,
+      "title": "Add data export feature",
+      "created_at": "2026-08-13T11:00:17.543187Z",
+      "merged_at": "2026-08-13T16:00:17.543187Z",
+      "author": "bob",
+      "additions": 214,
+      "deletions": 167,
+      "changed_files": 6,
+      "commits": 4,
+      "merge_commit_sha": "sha_pr_2011"
+    },
+    {
+      "number": 2030,
+      "title": "Implement dark mode",
+      "created_at": "2026-08-13T04:00:17.543187Z",
+      "merged_at": "2026-08-13T08:00:17.543187Z",
+      "author": "eve",
+      "additions": 182,
+      "deletions": 46,
+      "changed_files": 8,
+      "commits": 3,
+      "merge_commit_sha": "sha_pr_2030"
+    },
+    {
+      "number": 2042,
+      "title": "Implement dark mode",
+      "created_at": "2026-08-10T13:00:17.543187Z",
+      "merged_at": "2026-08-10T21:00:17.543187Z",
+      "author": "alice",
+      "additions": 100,
+      "deletions": 152,
+      "changed_files": 2,
+      "commits": 5,
+      "merge_commit_sha": "sha_pr_2042"
+    },
+    {
+      "number": 2043,
+      "title": "Fix mobile responsiveness",
+      "created_at": "2026-08-10T02:00:17.543187Z",
+      "merged_at": "2026-08-10T04:00:17.543187Z",
+      "author": "alice",
+      "additions": 128,
+      "deletions": 103,
+      "changed_files": 5,
+      "commits": 5,
+      "merge_commit_sha": "sha_pr_2043"
+    },
+    {
+      "number": 2060,
+      "title": "Add rate limiting",
+      "created_at": "2026-08-09T11:00:17.543187Z",
+      "merged_at": "2026-08-09T18:00:17.543187Z",
+      "author": "eve",
+      "additions": 494,
+      "deletions": 47,
+      "changed_files": 1,
+      "commits": 2,
+      "merge_commit_sha": "sha_pr_2060"
+    },
+    {
+      "number": 2002,
+      "title": "Fix memory leak in cache",
+      "created_at": "2026-08-09T13:00:17.543187Z",
+      "merged_at": "2026-08-09T17:00:17.543187Z",
+      "author": "charlie",
+      "additions": 307,
+      "deletions": 47,
+      "changed_files": 5,
+      "commits": 3,
+      "merge_commit_sha": "sha_pr_2002"
+    },
+    {
+      "number": 2010,
+      "title": "Implement dark mode",
+      "created_at": "2026-08-09T11:00:17.543187Z",
+      "merged_at": "2026-08-09T15:00:17.543187Z",
+      "author": "bob",
+      "additions": 324,
+      "deletions": 22,
+      "changed_files": 7,
+      "commits": 1,
+      "merge_commit_sha": "sha_pr_2010"
+    },
+    {
+      "number": 2009,
+      "title": "Add user authentication",
+      "created_at": "2026-08-09T07:00:17.543187Z",
+      "merged_at": "2026-08-09T13:00:17.543187Z",
+      "author": "bob",
+      "additions": 164,
+      "deletions": 104,
+      "changed_files": 2,
+      "commits": 5,
+      "merge_commit_sha": "sha_pr_2009"
+    },
+    {
+      "number": 2005,
+      "title": "Update dependencies",
+      "created_at": "2026-08-09T06:00:17.543187Z",
+      "merged_at": "2026-08-09T09:00:17.543187Z",
+      "author": "charlie",
+      "additions": 155,
+      "deletions": 171,
+      "changed_files": 2,
+      "commits": 2,
+      "merge_commit_sha": "sha_pr_2005"
+    },
+    {
+      "number": 2053,
+      "title": "Fix pagination bug",
+      "created_at": "2026-08-09T03:00:17.543187Z",
+      "merged_at": "2026-08-09T09:00:17.543187Z",
+      "author": "eve",
+      "additions": 283,
+      "deletions": 16,
+      "changed_files": 8,
+      "commits": 2,
+      "merge_commit_sha": "sha_pr_2053"
+    },
+    {
+      "number": 2017,
+      "title": "Implement feature flags",
+      "created_at": "2026-08-09T04:00:17.543187Z",
+      "merged_at": "2026-08-09T06:00:17.543187Z",
+      "author": "alice",
+      "additions": 66,
+      "deletions": 132,
+      "changed_files": 3,
+      "commits": 1,
+      "merge_commit_sha": "sha_pr_2017"
+    },
+    {
+      "number": 2063,
+      "title": "Add metrics dashboard",
+      "created_at": "2026-08-09T00:00:17.543187Z",
+      "merged_at": "2026-08-09T04:00:17.543187Z",
+      "author": "charlie",
+      "additions": 68,
+      "deletions": 74,
+      "changed_files": 2,
+      "commits": 4,
+      "merge_commit_sha": "sha_pr_2063"
+    },
+    {
+      "number": 2064,
+      "title": "Add user authentication",
+      "created_at": "2026-08-08T02:00:17.543187Z",
+      "merged_at": "2026-08-08T09:00:17.543187Z",
+      "author": "diana",
+      "additions": 113,
+      "deletions": 111,
+      "changed_files": 1,
+      "commits": 4,
+      "merge_commit_sha": "sha_pr_2064"
+    },
+    {
+      "number": 2006,
+      "title": "Fix XSS vulnerability",
+      "created_at": "2026-08-06T23:00:17.543187Z",
+      "merged_at": "2026-08-07T05:00:17.543187Z",
+      "author": "diana",
+      "additions": 358,
+      "deletions": 46,
+      "changed_files": 2,
+      "commits": 5,
+      "merge_commit_sha": "sha_pr_2006"
+    },
+    {
+      "number": 2021,
+      "title": "Optimize database queries",
+      "created_at": "2026-08-06T09:00:17.543187Z",
+      "merged_at": "2026-08-06T15:00:17.543187Z",
+      "author": "eve",
+      "additions": 132,
+      "deletions": 80,
+      "changed_files": 5,
+      "commits": 3,
+      "merge_commit_sha": "sha_pr_2021"
+    },
+    {
+      "number": 2024,
+      "title": "Implement feature flags",
+      "created_at": "2026-08-06T05:00:17.543187Z",
+      "merged_at": "2026-08-06T07:00:17.543187Z",
+      "author": "bob",
+      "additions": 121,
+      "deletions": 184,
+      "changed_files": 7,
+      "commits": 2,
+      "merge_commit_sha": "sha_pr_2024"
+    },
+    {
+      "number": 2031,
+      "title": "Improve error handling",
+      "created_at": "2026-08-06T01:00:17.543187Z",
+      "merged_at": "2026-08-06T04:00:17.543187Z",
+      "author": "bob",
+      "additions": 295,
+      "deletions": 122,
+      "changed_files": 8,
+      "commits": 4,
+      "merge_commit_sha": "sha_pr_2031"
+    },
+    {
+      "number": 2028,
+      "title": "Implement dark mode",
+      "created_at": "2026-08-05T11:00:17.543187Z",
+      "merged_at": "2026-08-05T13:00:17.543187Z",
+      "author": "bob",
+      "additions": 447,
+      "deletions": 122,
+      "changed_files": 8,
+      "commits": 3,
+      "merge_commit_sha": "sha_pr_2028"
+    },
+    {
+      "number": 2001,
+      "title": "Add rate limiting",
+      "created_at": "2026-08-05T00:00:17.543187Z",
+      "merged_at": "2026-08-05T04:00:17.543187Z",
+      "author": "bob",
+      "additions": 500,
+      "deletions": 25,
+      "changed_files": 2,
+      "commits": 5,
+      "merge_commit_sha": "sha_pr_2001"
+    },
+    {
+      "number": 2029,
+      "title": "Fix pagination bug",
+      "created_at": "2026-08-04T01:00:17.543187Z",
+      "merged_at": "2026-08-04T08:00:17.543187Z",
+      "author": "eve",
+      "additions": 294,
+      "deletions": 97,
+      "changed_files": 1,
+      "commits": 2,
+      "merge_commit_sha": "sha_pr_2029"
+    },
+    {
+      "number": 2051,
+      "title": "Add monitoring alerts",
+      "created_at": "2026-08-03T23:00:17.543187Z",
+      "merged_at": "2026-08-04T04:00:17.543187Z",
+      "author": "charlie",
+      "additions": 107,
+      "deletions": 84,
+      "changed_files": 1,
+      "commits": 1,
+      "merge_commit_sha": "sha_pr_2051"
+    }
+  ],
+  "incidents": [
+    {
+      "number": 104,
+      "title": "Memory leak causing OOM errors",
+      "created_at": "2026-09-01T04:00:17.543187Z",
+      "resolved_at": "2026-09-01T05:01:17.543187Z",
+      "state": "closed",
+      "labels": [
+        "incident",
+        "critical"
+      ],
+      "creator": "monitoring-bot"
+    },
+    {
+      "number": 101,
+      "title": "Database connection pool exhausted",
+      "created_at": "2026-08-31T07:00:17.543187Z",
+      "resolved_at": "2026-08-31T08:20:17.543187Z",
+      "state": "closed",
+      "labels": [
+        "incident",
+        "production"
+      ],
+      "creator": "monitoring-bot"
+    },
+    {
+      "number": 105,
+      "title": "CDN failover issue",
+      "created_at": "2026-08-26T11:00:17.543187Z",
+      "resolved_at": "2026-08-26T12:42:17.543187Z",
+      "state": "closed",
+      "labels": [
+        "incident",
+        "critical"
+      ],
+      "creator": "monitoring-bot"
+    },
+    {
+      "number": 102,
+      "title": "Redis cache unavailable",
+      "created_at": "2026-08-20T06:00:17.543187Z",
+      "resolved_at": "2026-08-20T07:53:17.543187Z",
+      "state": "closed",
+      "labels": [
+        "incident",
+        "production"
+      ],
+      "creator": "monitoring-bot"
+    },
+    {
+      "number": 103,
+      "title": "High error rate on /checkout endpoint",
+      "created_at": "2026-08-11T13:00:17.543187Z",
+      "resolved_at": "2026-08-11T14:01:17.543187Z",
+      "state": "closed",
+      "labels": [
+        "incident",
+        "production"
+      ],
+      "creator": "monitoring-bot"
+    },
+    {
+      "number": 100,
+      "title": "API Gateway timeout (504)",
+      "created_at": "2026-08-07T01:00:17.543187Z",
+      "resolved_at": "2026-08-07T02:35:17.543187Z",
+      "state": "closed",
+      "labels": [
+        "incident",
+        "production"
+      ],
+      "creator": "monitoring-bot"
+    }
+  ],
+  "repository": "acme-corp/platform-api",
+  "fetched_at": "2026-09-03T15:00:17.543187Z",
+  "days_analyzed": 30
+}

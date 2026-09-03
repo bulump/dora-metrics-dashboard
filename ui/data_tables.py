@@ -156,14 +156,23 @@ def display_process_compliance(deployments, pull_requests):
         st.markdown("#### ⚠️ Direct Commits (No PR)")
         st.warning(f"Found {len(direct_commits_data['deployments'])} deployment(s) that bypassed the PR process")
 
+        # Create a SHA-to-PR title lookup
+        pr_lookup = {pr.get('merge_commit_sha'): pr.get('title', 'Unknown') for pr in pull_requests if pr.get('merge_commit_sha')}
+
         data = []
         for deploy in direct_commits_data['deployments']:
             deploy_time = datetime.fromisoformat(deploy['deployed_at'].replace('Z', '+00:00'))
+            deploy_sha = deploy.get('sha', 'N/A')
+
+            # Try to find PR title (in case of inferred deployments)
+            pr_title = deploy.get('pr_title', pr_lookup.get(deploy_sha, 'Direct Commit'))
+
             data.append({
                 'Date': deploy_time.strftime('%Y-%m-%d'),
                 'Time': deploy_time.strftime('%H:%M:%S'),
+                'PR Title': pr_title,
                 'Deployer': deploy.get('creator', 'Unknown'),
-                'SHA': deploy.get('sha', 'N/A')[:8],
+                'SHA': deploy_sha[:8] if deploy_sha != 'N/A' else 'N/A',
                 'Environment': deploy.get('environment', 'N/A'),
                 'Source': deploy.get('source', 'N/A')
             })
@@ -176,12 +185,13 @@ def display_process_compliance(deployments, pull_requests):
             use_container_width=True,
             hide_index=True,
             column_config={
-                'Date': st.column_config.TextColumn('📅 Date', width='medium'),
+                'Date': st.column_config.TextColumn('📅 Date', width='small'),
                 'Time': st.column_config.TextColumn('🕐 Time', width='small'),
-                'Deployer': st.column_config.TextColumn('👤 Deployer', width='medium'),
+                'PR Title': st.column_config.TextColumn('📝 Description', width='large'),
+                'Deployer': st.column_config.TextColumn('👤 Deployer', width='small'),
                 'SHA': st.column_config.TextColumn('🔗 Commit', width='small'),
-                'Environment': st.column_config.TextColumn('🌍 Environment', width='medium'),
-                'Source': st.column_config.TextColumn('📦 Source', width='medium')
+                'Environment': st.column_config.TextColumn('🌍 Environment', width='small'),
+                'Source': st.column_config.TextColumn('📦 Source', width='small')
             }
         )
 
