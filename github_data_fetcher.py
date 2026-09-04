@@ -39,6 +39,16 @@ class GitHubDataFetcher:
         self.deployment_branches = deployment_branches or ['main', 'master']
         self.workflow_keywords = workflow_keywords or ['deploy', 'release', 'production']
 
+    @staticmethod
+    def _format_timestamp(dt: datetime) -> str:
+        """Format datetime to ISO string with Z suffix, handling timezone-aware datetimes."""
+        if dt is None:
+            return None
+        # Convert to UTC if timezone-aware
+        if dt.tzinfo is not None:
+            dt = dt.astimezone(timezone.utc).replace(tzinfo=None)
+        return dt.isoformat() + 'Z'
+
     def _handle_github_exception(self, e: Exception, context: str) -> None:
         """
         Handle GitHub API exceptions with informative error messages.
@@ -150,7 +160,7 @@ class GitHubDataFetcher:
                         deployments.append({
                             'id': deploy.id,
                             'environment': deploy.environment,
-                            'deployed_at': deploy.created_at.isoformat() + 'Z',
+                            'deployed_at': self._format_timestamp(deploy.created_at),
                             'status': latest_status.state if latest_status else 'unknown',
                             'sha': deploy.sha,
                             'creator': deploy.creator.login if deploy.creator else 'unknown',
@@ -174,7 +184,7 @@ class GitHubDataFetcher:
                                 deployments.append({
                                     'id': f"workflow_{run.id}",
                                     'environment': workflow.name,
-                                    'deployed_at': run.created_at.isoformat() + 'Z',
+                                    'deployed_at': self._format_timestamp(run.created_at),
                                     'status': 'success',
                                     'sha': run.head_sha,
                                     'creator': run.actor.login if run.actor else 'unknown',
@@ -228,7 +238,7 @@ class GitHubDataFetcher:
                         deployments.append({
                             'id': f"pr_{pr.number}",
                             'environment': 'production',
-                            'deployed_at': pr.merged_at.isoformat() + 'Z',
+                            'deployed_at': self._format_timestamp(pr.merged_at),
                             'status': 'success',
                             'sha': pr.merge_commit_sha,
                             'creator': pr.user.login,
@@ -273,8 +283,8 @@ class GitHubDataFetcher:
                     prs.append({
                         'number': pr.number,
                         'title': pr.title,
-                        'created_at': pr.created_at.isoformat() + 'Z',
-                        'merged_at': pr.merged_at.isoformat() + 'Z',
+                        'created_at': self._format_timestamp(pr.created_at),
+                        'merged_at': self._format_timestamp(pr.merged_at),
                         'merge_commit_sha': pr.merge_commit_sha,  # CRITICAL: needed for lead time calculation
                         'author': pr.user.login,
                         'additions': pr.additions,
@@ -319,14 +329,11 @@ class GitHubDataFetcher:
                 issue_labels = [label.name.lower() for label in issue.labels]
 
                 if any(inc_label in issue_labels for inc_label in self.incident_labels):
-                    # Determine if resolved
-                    resolved_at = issue.closed_at.isoformat() + 'Z' if issue.closed_at else None
-
                     incidents.append({
                         'number': issue.number,
                         'title': issue.title,
-                        'created_at': issue.created_at.isoformat() + 'Z',
-                        'resolved_at': resolved_at,
+                        'created_at': self._format_timestamp(issue.created_at),
+                        'resolved_at': self._format_timestamp(issue.closed_at),
                         'state': issue.state,
                         'labels': issue_labels,
                         'creator': issue.user.login if issue.user else 'unknown'
@@ -359,8 +366,8 @@ class GitHubDataFetcher:
                 'forks': repo.forks_count,
                 'open_issues': repo.open_issues_count,
                 'default_branch': repo.default_branch,
-                'created_at': repo.created_at.isoformat() + 'Z',
-                'updated_at': repo.updated_at.isoformat() + 'Z',
+                'created_at': self._format_timestamp(repo.created_at),
+                'updated_at': self._format_timestamp(repo.updated_at),
                 'language': repo.language,
                 'size': repo.size
             }
